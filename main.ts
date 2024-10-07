@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Command } from 'commander';
 import { createServer, request as httpRequest } from "http";
 import httpProxy from "http-proxy";
@@ -10,7 +12,7 @@ import { parse } from "url";
 const requiredEnvVars = ['STACK_PROJECT_ID', 'STACK_PUBLISHABLE_CLIENT_KEY', 'STACK_SECRET_SERVER_KEY'];
 for (const envVar of requiredEnvVars) {
   if (!process.env[envVar]) {
-    console.error(`Environment variable ${envVar} is required`);
+    console.error(`Environment variable ${envVar} is required. Go to https://app.stack-auth.com and create your API keys to continue.`);
     process.exit(1);
   }
 }
