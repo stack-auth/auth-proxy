@@ -1,6 +1,6 @@
 {
   "name": "@stackframe/auth-proxy",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "scripts": {
     "dev": "tsx watch main.ts -s 3000 -p 3001 -u \"/protected**\"",
