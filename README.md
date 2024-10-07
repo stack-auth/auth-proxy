@@ -71,6 +71,7 @@ app.get('/', (req, res) => {
   const html = template({ authenticated, displayName });
   res.send(html);
 });
+```
 
 Available headers:
 
