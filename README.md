@@ -10,7 +10,7 @@ First, create your API keys on the [Stack Auth Dashboard](https://app.stack-auth
 STACK_PROJECT_ID=<project-id> && \
 STACK_PUBLISHABLE_CLIENT_KEY=<client-key> && \
 STACK_SECRET_SERVER_KEY=<server-key> && \
-npx @stackframe/auth-proxy \
+npx @stackframe/auth-proxy@latest \
   -s <port-to-your-http-server> \
   -p <port-to-access-your-website-with>
 ```
@@ -53,7 +53,12 @@ If you access a protected page through the proxy without being authenticated, yo
 After signing in, you will be able to access the protected pages. To retrieve user information from your webpage, you can read the headers as shown in this JavaScript Express example (works similarly on other languages/frameworks):
 
 ```js
-const handlebars = require('handlebars');
+const express = require("express");
+const handlebars = require("handlebars");
+
+const app = express();
+const PORT = process.env.PORT;
+
 const template = handlebars.compile(`
   <div>
     {{#if authenticated}}
