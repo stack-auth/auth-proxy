@@ -57,17 +57,16 @@ const express = require("express");
 const handlebars = require("handlebars");
 
 const app = express();
-const PORT = process.env.PORT;
 
 const template = handlebars.compile(`
-  <div>
-    {{#if authenticated}}
-      <p>Name: {{displayName}}</p>
-      <p><a href="/handler/account-settings">Account Settings</a></p>
-    {{else}}
-      <p><a href="/handler/sign-in">Sign In</a></p>
-    {{/if}}
-  </div>
+<div>
+  {{#if authenticated}}
+    <p>Name: {{displayName}}</p>
+    <p><a href="/handler/account-settings">Account Settings</a></p>
+  {{else}}
+    <p><a href="/handler/sign-in">Sign In</a></p>
+  {{/if}}
+</div>
 `);
 
 app.get('/', (req, res) => {
@@ -76,6 +75,8 @@ app.get('/', (req, res) => {
   const html = template({ authenticated, displayName });
   res.send(html);
 });
+
+app.listen(3000);
 ```
 
 Available headers:

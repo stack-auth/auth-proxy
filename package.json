@@ -6,17 +6,17 @@
     "dev": "tsx watch main.ts -s 3000 -p 3001 -u \"/protected**\"",
     "build:next": "next build",
     "start:next": "next start",
-    "build:tsc": "tsc --project tsconfig.build.json",
+    "build:tsc": "tsup ./main.ts --target node16 --format cjs --out-dir dist",
     "start:tsc": "node dist/main.js",
     "build": "npm run build:next && npm run build:tsc",
     "start": "npm run start:tsc",
     "lint": "next lint"
   },
   "bin": {
-    "auth-proxy": "./dist/main.js"
+    "auth-proxy": "./dist/main.cjs"
   },
   "files": [
-    "./dist/main.js"
+    "./dist/main.cjs"
   ],
   "dependencies": {
     "@stackframe/stack": "^2.6.2",
@@ -37,7 +37,8 @@
     "eslint-config-next": "14.2.7",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5",
-    "tsx": "^4.7.2"
+    "tsup": "^8.3.0",
+    "tsx": "^4.7.2",
+    "typescript": "^5"
   }
 }

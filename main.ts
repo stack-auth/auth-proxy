@@ -5,8 +5,17 @@ import { minimatch } from 'minimatch';
 import next from "next";
 import { parse } from "url";
 
-const program = new Command();
 
+// Check for required environment variables
+const requiredEnvVars = ['STACK_PROJECT_ID', 'STACK_PUBLISHABLE_CLIENT_KEY', 'STACK_SECRET_SERVER_KEY'];
+for (const envVar of requiredEnvVars) {
+  if (!process.env[envVar]) {
+    console.error(`Environment variable ${envVar} is required`);
+    process.exit(1);
+  }
+}
+
+const program = new Command();
 program
   .description('Stack Proxy\nA simple proxy that authenticates http requests and provide sign-in interface to your app\nAll the routes except /handler/* are forwarded to the server with the user info headers')
   .requiredOption('-s, --server-port <number>', 'The server port', parseInt)
