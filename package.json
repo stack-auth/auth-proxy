@@ -1,5 +1,5 @@
 {
-  "name": "@stackframe/stack-proxy",
+  "name": "@stackframe/auth-proxy",
   "version": "2.6.2",
   "private": true,
   "type": "module",
@@ -14,7 +14,7 @@
     "lint": "next lint"
   },
   "bin": {
-    "stack-proxy": "./dist/main.js"
+    "auth-proxy": "./dist/main.js"
   },
   "dependencies": {
     "@stackframe/stack": "^2.6.2",

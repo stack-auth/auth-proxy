@@ -10,7 +10,7 @@ First, create your API keys on the [Stack Auth Dashboard](https://app.stack-auth
 STACK_PROJECT_ID=<project-id> && \
 STACK_PUBLISHABLE_CLIENT_KEY=<client-key> && \
 STACK_SECRET_SERVER_KEY=<server-key> && \
-npx @stackframe/stack-proxy \
+npx @stackframe/auth-proxy \
   -s <port-to-your-http-server> \
   -p <port-to-access-your-website-with>
 ```
@@ -33,7 +33,7 @@ Now, open a new terminal and run the proxy server on port 3000:
 STACK_PROJECT_ID=<project-id> && \
 STACK_PUBLISHABLE_CLIENT_KEY=<client-key> && \
 STACK_SECRET_SERVER_KEY=<server-key> && \
-npx @stackframe/stack-proxy \
+npx @stackframe/auth-proxy \
   -s 3001 \
   -p 3000 \
   -u "/protected**"
