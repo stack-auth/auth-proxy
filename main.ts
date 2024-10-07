@@ -20,23 +20,10 @@ const argOptions = program.opts();
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
-const proxy = httpProxy.createProxyServer({});
-
-const allHeaders = [
-  "x-stack-authenticated",
-  "x-stack-user-id",
-  "x-stack-user-primary-email",
-  "x-stack-user-display-name",
-];
 
 app.prepare().then(() => {
   createServer((req, res) => {
     let parsedUrl = parse(req.url!, true);
-
-    // Remove proxy auth headers
-    for (const header of allHeaders) {
-      delete req.headers[header];
-    }
 
     if (parsedUrl.pathname?.startsWith("/handler")) {
       // This is a hack for the account-setting + next.js basePath incompatibility, should be fixed later in the stack package
@@ -71,17 +58,32 @@ app.prepare().then(() => {
             return;
           }
 
-          if (userInfo.authenticated) {
-            req.headers["x-stack-authenticated"] = "true";
-            req.headers["x-stack-user-id"] = userInfo.user.id;
-            req.headers["x-stack-user-primary-email"] = userInfo.user.primary_email;
-            req.headers["x-stack-user-display-name"] = userInfo.user.display_name;
-          } else if (minimatch(req.url!, argOptions.protectedPattern)) {
-            res.statusCode = 302;
-            res.setHeader("Location", "/handler/sign-in");
-            res.end();
-            return;
-          }
+          const proxy = httpProxy.createProxyServer({});
+
+          proxy.on("proxyReq", (proxyReq, req, res) => {
+            const allHeaders = [
+              "x-stack-authenticated",
+              "x-stack-user-id",
+              "x-stack-user-primary-email",
+              "x-stack-user-display-name",
+            ];
+
+            for (const header of allHeaders) {
+              proxyReq.removeHeader(header);
+            }
+
+            if (userInfo.authenticated) {
+              proxyReq.setHeader("x-stack-authenticated", "true");
+              proxyReq.setHeader("x-stack-user-id", userInfo.user.id);
+              proxyReq.setHeader("x-stack-user-primary-email", userInfo.user.primary_email);
+              proxyReq.setHeader("x-stack-user-display-name", userInfo.user.display_name);
+            } else if (minimatch(req.url!, argOptions.protectedPattern)) {
+              res.statusCode = 302;
+              res.setHeader("Location", "/handler/sign-in");
+              res.end();
+              return;
+            }
+          });
 
           proxy.web(req, res, { target: `http://localhost:${argOptions.serverPort}` });
         });

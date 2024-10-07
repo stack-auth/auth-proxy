@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx watch main.ts -s 8115 -p 8116 -u \"/protected**\"",
+    "dev": "tsx watch main.ts -s 3000 -p 3001 -u \"/protected**\"",
     "build:next": "next build",
     "start:next": "next start",
     "build:tsc": "tsc --project tsconfig.build.json",
@@ -17,7 +17,7 @@
     "stack-proxy": "./dist/main.js"
   },
   "dependencies": {
-    "@stackframe/stack": "workspace:*",
+    "@stackframe/stack": "^2.6.2",
     "commander": "^12.1.0",
     "http-proxy": "^1.18.1",
     "minimatch": "^10.0.1",
