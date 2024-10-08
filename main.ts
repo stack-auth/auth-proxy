@@ -19,7 +19,7 @@ for (const envVar of requiredEnvVars) {
 
 const program = new Command();
 program
-  .description('Stack Proxy\nA simple proxy that authenticates http requests and provide sign-in interface to your app\nAll the routes except /handler/* are forwarded to the server with the user info headers')
+  .description('Stack Auth Proxy\nA simple proxy that authenticates http requests and provide sign-in interface to your app\nAll the routes except /handler/* are forwarded to the server with the user info headers')
   .requiredOption('-s, --server-port <number>', 'The server port', parseInt)
   .option('-p, --proxy-port <number>', 'The proxy port', x => parseInt(x, 10), 3000)
   .option('-h, --proxy-host <string>', 'The proxy host', 'localhost')
@@ -28,7 +28,8 @@ program
 program.parse(process.argv);
 const argOptions = program.opts();
 
-const dev = process.env.NODE_ENV !== "production";
+const dev = process.env.NODE_ENV === "development";
+
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
