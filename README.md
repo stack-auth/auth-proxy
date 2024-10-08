@@ -7,8 +7,8 @@ Stack Auth Proxy is a simple one-command proxy that authenticates your HTTP requ
 First, create your API keys on the [Stack Auth Dashboard](https://app.stack-auth.com) and retrieve your environment variables. Note that Stack Auth is open-source and can be self-hosted; more details are available [here](https://github.com/stack-auth/stack).
 
 ```sh
-STACK_PROJECT_ID=<project-id> && \
-STACK_PUBLISHABLE_CLIENT_KEY=<client-key> && \
+NEXT_PUBLIC_STACK_PROJECT_ID=<project-id> && \
+NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<client-key> && \
 STACK_SECRET_SERVER_KEY=<server-key> && \
 npx @stackframe/auth-proxy@latest \
   -s <port-to-your-http-server> \
@@ -30,8 +30,8 @@ You can check out the original server without the proxy at [localhost:3001](http
 Now, open a new terminal and run the proxy server on port 3000:
 
 ```sh
-STACK_PROJECT_ID=<project-id> && \
-STACK_PUBLISHABLE_CLIENT_KEY=<client-key> && \
+NEXT_PUBLIC_STACK_PROJECT_ID=<project-id> && \
+NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<client-key> && \
 STACK_SECRET_SERVER_KEY=<server-key> && \
 npx @stackframe/auth-proxy \
   -s 3001 \

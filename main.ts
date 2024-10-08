@@ -9,7 +9,7 @@ import { parse } from "url";
 
 
 // Check for required environment variables
-const requiredEnvVars = ['STACK_PROJECT_ID', 'STACK_PUBLISHABLE_CLIENT_KEY', 'STACK_SECRET_SERVER_KEY'];
+const requiredEnvVars = ['NEXT_PUBLIC_STACK_PROJECT_ID', 'NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY', 'STACK_SECRET_SERVER_KEY'];
 for (const envVar of requiredEnvVars) {
   if (!process.env[envVar]) {
     console.error(`Environment variable ${envVar} is required. Go to https://app.stack-auth.com and create your API keys to continue.`);
