@@ -6,7 +6,7 @@ import httpProxy from "http-proxy";
 import { minimatch } from 'minimatch';
 import next from "next";
 import { parse } from "url";
-
+import path from "path";
 
 // Check for required environment variables
 const requiredEnvVars = ['NEXT_PUBLIC_STACK_PROJECT_ID', 'NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY', 'STACK_SECRET_SERVER_KEY'];
@@ -30,6 +30,8 @@ const argOptions = program.opts();
 
 const dev = process.env.NODE_ENV === "development";
 
+const dir = path.resolve(__dirname, "..");
+process.chdir(dir);
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
