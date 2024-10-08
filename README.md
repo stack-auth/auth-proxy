@@ -7,12 +7,21 @@ Stack Auth Proxy is a simple one-command proxy that authenticates your HTTP requ
 First, create your API keys on the [Stack Auth Dashboard](https://app.stack-auth.com) and retrieve your environment variables. Note that Stack Auth is open-source and can be self-hosted; more details are available [here](https://github.com/stack-auth/stack).
 
 ```sh
-NEXT_PUBLIC_STACK_PROJECT_ID=<project-id> && \
-NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<client-key> && \
-STACK_SECRET_SERVER_KEY=<server-key> && \
-npx @stackframe/auth-proxy@latest \
-  -s <port-to-your-http-server> \
-  -p <port-to-access-your-website-with>
+NEXT_PUBLIC_STACK_PROJECT_ID=<project-id> \
+NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<client-key> \
+STACK_SECRET_SERVER_KEY=<server-key> \
+npx @stackframe/auth-proxy@latest -s <your-server-port> -p <proxy-port>
+```
+
+Or if you prefer using Docker:
+
+```sh
+docker run \
+  -e NEXT_PUBLIC_STACK_PROJECT_ID=<project-id> \
+  -e NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<client-key> \
+  -e STACK_SECRET_SERVER_KEY=<server-key> \
+  -p <proxy-port>:<proxy-port> \
+  stack-auth-proxy:latest -s <your-server-port> -p <proxy-port>
 ```
 
 You can also use a glob-style pattern with `-u` to specify which routes to protect. By default, all routes are protected.
@@ -22,24 +31,27 @@ You can also use a glob-style pattern with `-u` to specify which routes to prote
 
 Start the example server on port 3000:
 ```sh
-PORT=3001 && npx @stackframe/proxied-server-example
+git clone git@github.com:stack-auth/auth-proxy.git
+cd express-example-server
+npm install
+npm run dev
 ```
 
-You can check out the original server without the proxy at [localhost:3001](http://localhost:3001).
+You can check out the original server without the proxy at [localhost:3000](http://localhost:3000).
 
 Now, open a new terminal and run the proxy server on port 3000:
 
 ```sh
-NEXT_PUBLIC_STACK_PROJECT_ID=<project-id> && \
-NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<client-key> && \
-STACK_SECRET_SERVER_KEY=<server-key> && \
+NEXT_PUBLIC_STACK_PROJECT_ID=<project-id> \
+NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<client-key> \
+STACK_SECRET_SERVER_KEY=<server-key> \
 npx @stackframe/auth-proxy \
-  -s 3001 \
-  -p 3000 \
+  -s 3000 \
+  -p 3001 \
   -u "/protected**"
 ```
 
-You can explore the proxy at [localhost:3000](http://localhost:3000).
+You can explore the proxy at [localhost:3001](http://localhost:3001).
 </details>
 
 ## What You Get
