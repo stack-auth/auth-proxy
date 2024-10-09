@@ -11,11 +11,14 @@ docker run \
   -e NEXT_PUBLIC_STACK_PROJECT_ID=<project-id> \
   -e NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<client-key> \
   -e STACK_SECRET_SERVER_KEY=<server-key> \
+  -e PROTECTED_PATTERN=<protected-pattern> \
+  -e SERVER_PORT=<server-port> \
+  -e PROXY_PORT=<proxy-port> \
   -p <proxy-port>:<proxy-port> \
-  stackauth/auth-proxy:latest -sp <your-server-port> -p <proxy-port>
+  stackauth/auth-proxy:latest
 ```
 
-You can also use a glob-style pattern with `-u` to specify which routes to protect. By default, all routes are protected.
+The `PROTECTED_PATTERN` is a glob-style pattern. For example, if you want to protect everything under `/protected`, you can set it to `"/protected**"`; If you want to protect everything, use `"**"`.
 
 <details>
   <summary>If you don't have a website, you can run our example server to play around with the proxy</summary>
@@ -33,13 +36,15 @@ You can check out the original server without the proxy at [localhost:3000](http
 Now, open a new terminal and run the proxy server on port 3000:
 
 ```sh
-NEXT_PUBLIC_STACK_PROJECT_ID=<project-id> \
-NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<client-key> \
-STACK_SECRET_SERVER_KEY=<server-key> \
-npx @stackframe/auth-proxy \
-  -s 3000 \
-  -p 3001 \
-  -u "/protected**"
+docker run \
+  -e NEXT_PUBLIC_STACK_PROJECT_ID=<project-id> \
+  -e NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<client-key> \
+  -e STACK_SECRET_SERVER_KEY=<server-key> \
+  -e PROTECTED_PATTERN="/protected**" \
+  -e SERVER_PORT=3000 \
+  -e PROXY_PORT=3001 \
+  -p 3001:3001 \
+  stackauth/auth-proxy:latest
 ```
 
 You can explore the proxy at [localhost:3001](http://localhost:3001).

@@ -24,4 +24,4 @@ ENV PROTECTED_PATTERN=${PROTECTED_PATTERN}
 
 EXPOSE ${PROXY_PORT}
 
-CMD ["sh", "-c", "node dist/main.cjs -sp $SERVER_PORT -p $PROXY_PORT -sh host.docker.internal -u $PROTECTED_PATTERN"]
+CMD sh -c 'for var in NEXT_PUBLIC_STACK_PROJECT_ID NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY STACK_SECRET_SERVER_KEY SERVER_PORT PROXY_PORT PROTECTED_PATTERN; do if [ -z "$(eval echo \$$var)" ]; then echo "Error: $var is not set."; exit 1; fi; done && node dist/main.cjs -sp $SERVER_PORT -p $PROXY_PORT -sh host.docker.internal -u "$PROTECTED_PATTERN"'
