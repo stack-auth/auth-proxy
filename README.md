@@ -19,9 +19,9 @@ docker run \
   stackauth/auth-proxy:latest <patterns>
 ```
 
-You can now access your application server at `http://localhost:3001` and all the routes under the protected pattern will only be accessible by authenticated users.
+You can now access your application server at [localhost:3001](http://localhost:3001) and all the routes under the protected patterns will only be accessible by authenticated users.
 
-The protected pattern is a URL pattern (check out the syntax [here](https://github.com/snd/url-pattern)). Don't forget to include the leading `/` and handling the trailing `/`.
+The protected patterns are URL patterns (check out the syntax [here](https://github.com/snd/url-pattern)). Don't forget to include the leading `/` and handling the trailing `/`.
 
 For example, if you want to protect everything under `/a` and only the route `/b` (not `/b/c`), you can run 
 
