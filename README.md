@@ -106,7 +106,7 @@ Available URLs (redirect your app server to these URLs as needed):
 - `/handler/sign-up`
 - `/handler/sign-out`: Clears cookies and redirects back to your homepage.
 - `/handler/account-settings`: Users can update their email, display name, password, etc.
-- `/handler/me`: If you make a request to this URL with the user's session cookie, you get a more detailed user object. This is useful for client-side apps.
+- `/handler/me`: If you make a request to this URL with the user's session cookie, you will get the client information in JSON. This is useful for client-side apps.
 
 ## How It Works
 
