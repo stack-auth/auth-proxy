@@ -13,12 +13,15 @@ docker run \
   -e NEXT_PUBLIC_STACK_PROJECT_ID=<stack-auth-project-id> \
   -e NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<stack-auth-client-key> \
   -e STACK_SECRET_SERVER_KEY=<stack-auth-server-key> \
-  -e PROTECTED_PATTERN=<glob-of-pages-to-protect> \  # example: PROTECTED_PATTERN="/protected/**"
   -e SERVER_PORT=3000 \
   -e PROXY_PORT=3001 \
   -p 3001:3001 \
-  stackauth/auth-proxy:latest
+  stackauth/auth-proxy:latest <protected-pattern>
 ```
+
+The protected pattern is a URL pattern (check out the syntax [here](https://github.com/snd/url-pattern)). Don't forget to include the leading `/` and handling the trailing `/`.
+
+For example, if you want to protect all routes under `/protected`, you can run `... stackauth/auth-proxy:latest "/protected(/*)"`. It also supports multiple pattern. If you want to protect everything under `/a` and only the route `/b`, you can run `stackauth/auth-proxy:latest "/a(/*)" "/b(/)"`.
 
 Now, you can access your server at `http://localhost:3001`, and all the routes under the protected pattern will only be accessible by authenticated users.
 
@@ -42,11 +45,10 @@ docker run \
   -e NEXT_PUBLIC_STACK_PROJECT_ID=<project-id> \
   -e NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<client-key> \
   -e STACK_SECRET_SERVER_KEY=<server-key> \
-  -e PROTECTED_PATTERN="/protected**" \
   -e SERVER_PORT=3000 \
   -e PROXY_PORT=3001 \
   -p 3001:3001 \
-  stackauth/auth-proxy:latest
+  stackauth/auth-proxy:latest "/protected(/*)"
 ```
 
 You can explore the proxy at [localhost:3001](http://localhost:3001).

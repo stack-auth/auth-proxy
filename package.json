@@ -3,7 +3,6 @@
   "version": "0.0.8",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch main.ts -sp 3000 -p 3001 -u \"/protected**\"",
     "build:next": "next build",
     "start:next": "next start",
     "build:tsc": "tsup ./main.ts --target node16 --format cjs --out-dir dist",
@@ -26,10 +25,10 @@
     "@stackframe/stack": "^2.6.4",
     "commander": "^12.1.0",
     "http-proxy": "^1.18.1",
-    "minimatch": "^10.0.1",
     "next": "14.2.7",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "url-pattern": "^1.0.3"
   },
   "devDependencies": {
     "@types/command-line-args": "^5.2.3",
