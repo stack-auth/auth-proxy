@@ -1,31 +1,29 @@
-# Stack Auth Proxy
+# auth-proxy
 
-Stack Auth Proxy is a simple one-command proxy that authenticates your HTTP requests and redirects to a pre-built sign-in page if a user is not authenticated.
+auth-proxy is a simple one-command proxy that authenticates your HTTP requests and redirects to a pre-built sign-in page if a user is not authenticated.
 
 ## Setup
 
-First, create your API keys on the [Stack Auth Dashboard](https://app.stack-auth.com). Note that Stack Auth is open-source and can be self-hosted; more details are available [here](https://github.com/stack-auth/stack).
+First, [set up Stack Auth](https://docs.stack-auth.com/getting-started/setup) either locally or on our managed hosting, and copy-paste your API keys. Stack Auth is the open-source Auth0 alternative.
 
-Then, start your server on port `<server-port>` and run the proxy server with the following command:
+Then, start your application server on port `3000` and run the proxy with the following command:
 
 ```sh
 docker run \
-  -e NEXT_PUBLIC_STACK_PROJECT_ID=<project-id> \
-  -e NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<client-key> \
-  -e STACK_SECRET_SERVER_KEY=<server-key> \
-  -e PROTECTED_PATTERN=<protected-pattern> \
-  -e SERVER_PORT=<server-port> \
-  -e PROXY_PORT=<proxy-port> \
-  -p <proxy-port>:<proxy-port> \
+  -e NEXT_PUBLIC_STACK_PROJECT_ID=<stack-auth-project-id> \
+  -e NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<stack-auth-client-key> \
+  -e STACK_SECRET_SERVER_KEY=<stack-auth-server-key> \
+  -e PROTECTED_PATTERN=<glob-of-pages-to-protect> \  # example: PROTECTED_PATTERN="/protected/**"
+  -e SERVER_PORT=3000 \
+  -e PROXY_PORT=3001 \
+  -p 3001:3001 \
   stackauth/auth-proxy:latest
 ```
 
-The `PROTECTED_PATTERN` is a glob-style pattern. For example, if you want to protect everything under `/protected`, you can set it to `"/protected**"`; If you want to protect everything, use `"**"`.
-
-Now, you can access your server at `http://localhost:<proxy-port>`, and all the routes under `/protected` will be protected by Stack Auth.
+Now, you can access your server at `http://localhost:3001`, and all the routes under `/protected` will be protected by Stack Auth.
 
 <details>
-  <summary>If you don't have a website, you can run our example server to play around with the proxy</summary>
+  <summary>If you don't have an application server, you can run our example server to play around with the proxy</summary>
 
 Start the example server on port 3000:
 ```sh
