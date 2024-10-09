@@ -54,7 +54,7 @@ docker run \
 You can explore the proxy at [localhost:3001](http://localhost:3001).
 </details>
 
-## What You Get
+## Features
 
 If you access a protected page through the proxy without being authenticated, you will be redirected to a sign-in page like this (customizable on the dashboard):
 
