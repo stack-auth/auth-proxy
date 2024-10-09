@@ -3,11 +3,11 @@
   "version": "0.0.8",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch main.ts -s 3000 -p 3001 -u \"/protected**\"",
+    "dev": "tsx watch main.ts -sp 3000 -p 3001 -u \"/protected**\"",
     "build:next": "next build",
     "start:next": "next start",
     "build:tsc": "tsup ./main.ts --target node16 --format cjs --out-dir dist",
-    "start:tsc": "node dist/main.js",
+    "start:tsc": "node dist/main.cjs",
     "build": "npm run build:next && npm run build:tsc",
     "start": "npm run start:tsc",
     "lint": "next lint"
@@ -23,7 +23,7 @@
     "tsconfig.json"
   ],
   "dependencies": {
-    "@stackframe/stack": "^2.6.2",
+    "@stackframe/stack": "^2.6.4",
     "commander": "^12.1.0",
     "http-proxy": "^1.18.1",
     "minimatch": "^10.0.1",
