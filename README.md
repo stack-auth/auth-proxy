@@ -125,7 +125,7 @@ else:
 ```mermaid
 graph TB
     Client((Request))
-    Proxy[Stack Auth Proxy]
+    Proxy[Auth Proxy]
     YourServer[Your Server]
     StackAuthServer[Stack Auth Server]
     

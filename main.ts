@@ -30,7 +30,7 @@ const serverHost = process.env.SERVER_HOST || 'localhost';
 
 const program = new Command();
 program
-  .description('Stack Auth Proxy\nA simple proxy that authenticates http requests and provide sign-in interface to your app\nAll the routes except /handler/* are forwarded to the server with the user info headers')
+  .description('Auth Proxy\nA simple proxy that authenticates http requests and provide sign-in interface to your app\nAll the routes except /handler/* are forwarded to the server with the user info headers')
   .argument('[protectedPattern...]', 'The protected URL patterns (glob syntax)');
 
 program.parse(process.argv);
@@ -130,7 +130,7 @@ app.prepare().then(() => {
     console.error(err);
   });
 
-  console.log(`Stack Auth Proxy forwarding http://${serverHost}:${serverPort} to http://${proxyHost}:${proxyPort}\nProtecting ${program.args.join(' ')}`);
+  console.log(`Auth Proxy forwarding http://${serverHost}:${serverPort} to http://${proxyHost}:${proxyPort}\nProtecting ${program.args.join(' ')}`);
 }).catch((err) => {
   console.error(err);
 });
