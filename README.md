@@ -16,12 +16,12 @@ docker run \
   -e SERVER_PORT=3000 \
   -e PROXY_PORT=3001 \
   -p 3001:3001 \
-  stackauth/auth-proxy:latest <protected-pattern>
+  stackauth/auth-proxy:latest <protected-pattern1> <protected-pattern2> ...
 ```
 
 The protected pattern is a URL pattern (check out the syntax [here](https://github.com/snd/url-pattern)). Don't forget to include the leading `/` and handling the trailing `/`.
 
-For example, if you want to protect all routes under `/protected`, you can run `... stackauth/auth-proxy:latest "/protected(/*)"`. It also supports multiple pattern. If you want to protect everything under `/a` and only the route `/b`, you can run `stackauth/auth-proxy:latest "/a(/*)" "/b(/)"`.
+For example, if you want to protect all routes under `/protected`, you can run `... stackauth/auth-proxy:latest "/protected(/*)"`. It also supports multiple patterns. If you want to protect everything under `/a` and only the route `/b`, you can run `stackauth/auth-proxy:latest "/a(/*)" "/b(/)"`.
 
 Now, you can access your server at `http://localhost:3001`, and all the routes under the protected pattern will only be accessible by authenticated users.
 
