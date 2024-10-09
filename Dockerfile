@@ -1,10 +1,27 @@
 FROM node:18-alpine AS builder
 
-RUN npm install -g @stackframe/auth-proxy@latest
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml ./
+COPY app ./app
+COPY stack.tsx ./
+COPY next.config.mjs ./
+COPY postcss.config.mjs ./
+COPY tailwind.config.ts ./
+COPY tsconfig.json ./
+COPY main.ts ./
+
+RUN npm install -g pnpm
+RUN pnpm install
+RUN pnpm run build
 
 ENV NEXT_PUBLIC_STACK_PROJECT_ID=${NEXT_PUBLIC_STACK_PROJECT_ID}
 ENV NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=${NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY}
 ENV STACK_SECRET_SERVER_KEY=${STACK_SECRET_SERVER_KEY}
+ENV SERVER_PORT=${SERVER_PORT}
+ENV PROXY_PORT=${PROXY_PORT}
+ENV PROTECTED_PATTERN=${PROTECTED_PATTERN}
 
-ENTRYPOINT ["auth-proxy"]
-CMD []
+EXPOSE ${PROXY_PORT}
+
+CMD ["sh", "-c", "node dist/main.cjs -sp $SERVER_PORT -p $PROXY_PORT -sh host.docker.internal -u $PROTECTED_PATTERN"]

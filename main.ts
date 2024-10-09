@@ -20,7 +20,8 @@ for (const envVar of requiredEnvVars) {
 const program = new Command();
 program
   .description('Stack Auth Proxy\nA simple proxy that authenticates http requests and provide sign-in interface to your app\nAll the routes except /handler/* are forwarded to the server with the user info headers')
-  .requiredOption('-s, --server-port <number>', 'The server port', parseInt)
+  .requiredOption('-sp, --server-port <number>', 'The server port', parseInt)
+  .option('-sh, --server-host <string>', 'The server host', 'localhost')
   .option('-p, --proxy-port <number>', 'The proxy port', x => parseInt(x, 10), 3000)
   .option('-h, --proxy-host <string>', 'The proxy host', 'localhost')
   .option('-u, --protected-pattern <string>', 'The protected URL pattern (glob syntax)', '**');
@@ -99,7 +100,7 @@ app.prepare().then(() => {
             }
           });
 
-          proxy.web(req, res, { target: `http://localhost:${argOptions.serverPort}` });
+          proxy.web(req, res, { target: `http://${argOptions.serverHost}:${argOptions.serverPort}` });
         });
       });
 
@@ -112,5 +113,5 @@ app.prepare().then(() => {
     }
   }).listen(argOptions.proxyPort);
 
-  console.log(`Stack Proxy forwarding http://localhost:${argOptions.serverPort} to http://${argOptions.proxyHost}:${argOptions.proxyPort}\nProtecting ${argOptions.protectedPattern}`);
+  console.log(`Stack Auth Proxy forwarding http://${argOptions.serverHost}:${argOptions.serverPort} to http://${argOptions.proxyHost}:${argOptions.proxyPort}\nProtecting ${argOptions.protectedPattern}`);
 });

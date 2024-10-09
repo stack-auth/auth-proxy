@@ -10,11 +10,7 @@
     "start:tsc": "node dist/main.js",
     "build": "npm run build:next && npm run build:tsc",
     "start": "npm run start:tsc",
-    "lint": "next lint",
-    "postinstall": "npm run build"
-  },
-  "bin": {
-    "auth-proxy": "./dist/main.cjs"
+    "lint": "next lint"
   },
   "files": [
     "dist",

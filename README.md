@@ -7,21 +7,12 @@ Stack Auth Proxy is a simple one-command proxy that authenticates your HTTP requ
 First, create your API keys on the [Stack Auth Dashboard](https://app.stack-auth.com) and retrieve your environment variables. Note that Stack Auth is open-source and can be self-hosted; more details are available [here](https://github.com/stack-auth/stack).
 
 ```sh
-NEXT_PUBLIC_STACK_PROJECT_ID=<project-id> \
-NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<client-key> \
-STACK_SECRET_SERVER_KEY=<server-key> \
-npx @stackframe/auth-proxy@latest -s <your-server-port> -p <proxy-port>
-```
-
-Or if you prefer using Docker:
-
-```sh
 docker run \
   -e NEXT_PUBLIC_STACK_PROJECT_ID=<project-id> \
   -e NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<client-key> \
   -e STACK_SECRET_SERVER_KEY=<server-key> \
   -p <proxy-port>:<proxy-port> \
-  stack-auth-proxy:latest -s <your-server-port> -p <proxy-port>
+  stackauth/auth-proxy:latest -sp <your-server-port> -p <proxy-port>
 ```
 
 You can also use a glob-style pattern with `-u` to specify which routes to protect. By default, all routes are protected.
