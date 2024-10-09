@@ -4,7 +4,9 @@ Stack Auth Proxy is a simple one-command proxy that authenticates your HTTP requ
 
 ## Setup
 
-First, create your API keys on the [Stack Auth Dashboard](https://app.stack-auth.com) and retrieve your environment variables. Note that Stack Auth is open-source and can be self-hosted; more details are available [here](https://github.com/stack-auth/stack).
+First, create your API keys on the [Stack Auth Dashboard](https://app.stack-auth.com). Note that Stack Auth is open-source and can be self-hosted; more details are available [here](https://github.com/stack-auth/stack).
+
+Then, start your server on port `<server-port>` and run the proxy server with the following command:
 
 ```sh
 docker run \
@@ -19,6 +21,8 @@ docker run \
 ```
 
 The `PROTECTED_PATTERN` is a glob-style pattern. For example, if you want to protect everything under `/protected`, you can set it to `"/protected**"`; If you want to protect everything, use `"**"`.
+
+Now, you can access your server at `http://localhost:<proxy-port>`, and all the routes under `/protected` will be protected by Stack Auth.
 
 <details>
   <summary>If you don't have a website, you can run our example server to play around with the proxy</summary>
@@ -58,7 +62,9 @@ If you access a protected page through the proxy without being authenticated, yo
 <img alt="Stack Setup" src="assets/sign-in.png" width="400" />
 </div>
 
-After signing in, you will be able to access the protected pages. To retrieve user information from your webpage, you can read the headers as shown in this JavaScript Express example (works similarly on other languages/frameworks):
+After signing in, you will be able to access the protected pages. 
+
+To retrieve user information from your webpage, you can read the headers as shown in this JavaScript Express + handlebars example (works similarly on other languages/frameworks):
 
 ```js
 const express = require("express");
@@ -100,6 +106,7 @@ Available URLs (redirect your app server to these URLs as needed):
 - `/handler/sign-up`
 - `/handler/sign-out`: Clears cookies and redirects back to your homepage.
 - `/handler/account-settings`: Users can update their email, display name, password, etc.
+- `/handler/me`: If you make a request to this URL with the user's session cookie, you get a more detailed user object. This is useful for client-side apps.
 
 ## How It Works
 
