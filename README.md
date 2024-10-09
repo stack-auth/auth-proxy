@@ -10,16 +10,16 @@ Then, start your application server on port `3000` and run the proxy with the fo
 
 ```sh
 docker run \
-  -e NEXT_PUBLIC_STACK_PROJECT_ID=<stack-auth-project-id> \
-  -e NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<stack-auth-client-key> \
-  -e STACK_SECRET_SERVER_KEY=<stack-auth-server-key> \
-  -e SERVER_PORT=<your-app-server-port> \
-  -e PROXY_PORT=<proxy-port> \
-  -p <proxy-port>:<proxy-port> \
-  stackauth/auth-proxy:latest <protected-pattern1> <protected-pattern2> ...
+  -e NEXT_PUBLIC_STACK_PROJECT_ID=<project-id> \
+  -e NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=<client-key> \
+  -e STACK_SECRET_SERVER_KEY=<server-key> \
+  -e SERVER_PORT=3000 \
+  -e PROXY_PORT=3001 \
+  -p 3001:3001 \
+  stackauth/auth-proxy:latest <patterns>
 ```
 
-You can now access your application server at `http://localhost:<proxy-port>` and all the routes under the protected pattern will only be accessible by authenticated users.
+You can now access your application server at `http://localhost:3001` and all the routes under the protected pattern will only be accessible by authenticated users.
 
 The protected pattern is a URL pattern (check out the syntax [here](https://github.com/snd/url-pattern)). Don't forget to include the leading `/` and handling the trailing `/`.
 
