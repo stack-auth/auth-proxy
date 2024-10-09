@@ -20,7 +20,7 @@ docker run \
   stackauth/auth-proxy:latest
 ```
 
-Now, you can access your server at `http://localhost:3001`, and all the routes under `/protected` will be protected by Stack Auth.
+Now, you can access your server at `http://localhost:3001`, and all the routes under the protected pattern will only be accessible by authenticated users.
 
 <details>
   <summary>If you don't have an application server, you can run our example server to play around with the proxy</summary>
