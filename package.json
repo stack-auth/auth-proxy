@@ -22,7 +22,7 @@
     "tsconfig.json"
   ],
   "dependencies": {
-    "@stackframe/stack": "^2.6.4",
+    "@stackframe/stack": "^2.6.7",
     "commander": "^12.1.0",
     "http-proxy": "^1.18.1",
     "next": "14.2.7",
