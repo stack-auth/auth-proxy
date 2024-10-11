@@ -139,5 +139,3 @@ graph TB
     class YourServer container
     class Proxy container
 ```
-
-This diagram illustrates the request flow and interactions between the client, the proxy, your server, and the Stack Auth server.
