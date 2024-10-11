@@ -4,7 +4,7 @@ auth-proxy is a simple one-command proxy that authenticates your HTTP requests a
 
 ## Setup
 
-First, [create your Stack Auth API keys](https://app.stack-auth.com/) (either [locally](https://github.com/stack-auth/stack) or in the [cloud](https://stack-auth.com/)), and copy-paste your API keys. Stack Auth is the open-source Auth0 alternative.
+First, create your API keys on the [Stack Auth ashboard](https://app.stack-auth.com/) (or you can [host it locally](https://github.com/stack-auth/stack)). Stack Auth is the open-source Auth0 alternative.
 
 Then, start your application server on port `3000` and run the proxy with the following command:
 
